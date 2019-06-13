@@ -107,6 +107,10 @@ func (h *Histogram) ByteSize() int {
 // Merge merges the data stored in the given histogram with the receiver,
 // returning the number of recorded values which had to be dropped.
 func (h *Histogram) Merge(from *Histogram) (dropped int64) {
+	if from == nil {
+		return
+	}
+
 	i := from.rIterator()
 	for i.next() {
 		v := i.valueFromIdx
